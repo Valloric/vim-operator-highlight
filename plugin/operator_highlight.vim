@@ -32,7 +32,7 @@ if !exists( 'g:ophigh_filetypes_to_ignore' )
     " we don't want highlighting in vim's help files
     let g:ophigh_filetypes_to_ignore = { 'help': 1 }
 elseif !has_key( g:ophigh_filetypes_to_ignore, 'help' )
-    let g:ophigh_filetypes_to_ignore[ 'help' ] = 1
+    let g:ophigh_filetypes_to_ignore.help = 1
 endif
 
 fun! s:HighlightOperators()
