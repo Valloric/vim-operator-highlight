@@ -42,8 +42,8 @@ fun! s:HighlightOperators()
 
     " for the last element of the regex, see :h /\@!
     " basically, searching for "/" is more complex since we want to avoid
-    " matching against "//" which would break C++ comment highlighting
-    syntax match OperatorChars "+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\)\@!"
+    " matching against "//" or "/*" which would break C++ comment highlighting
+    syntax match OperatorChars "+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\|*\)\@!"
     exec "hi OperatorChars guifg=" . g:ophigh_color . " gui=NONE"
 endfunction
 
