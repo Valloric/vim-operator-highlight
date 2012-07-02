@@ -19,32 +19,46 @@
 " THE SOFTWARE.
 
 if exists( 'g:loaded_operator_highlight' )
-    finish
+  finish
 else
-    let g:loaded_operator_highlight = 1
+  let g:loaded_operator_highlight = 1
 endif
 
 if !exists( 'g:ophigh_color' )
-    let g:ophigh_color = "cyan"
+  let g:ophigh_color = "cyan"
 endif
 
 if !exists( 'g:ophigh_filetypes_to_ignore' )
-    " we don't want highlighting in vim's help files
-    let g:ophigh_filetypes_to_ignore = { 'help': 1 }
-elseif !has_key( g:ophigh_filetypes_to_ignore, 'help' )
-    let g:ophigh_filetypes_to_ignore.help = 1
+  let g:ophigh_filetypes_to_ignore = {}
 endif
 
-fun! s:HighlightOperators()
-    if has_key( g:ophigh_filetypes_to_ignore, &filetype )
-        return
-    endif
+fun! s:IgnoreFiletypeIfNotSet( file_type )
+  if get( g:ophigh_filetypes_to_ignore, a:file_type, 1 )
+    let g:ophigh_filetypes_to_ignore[a:file_type] = 1
+  endif
+endfunction
 
-    " for the last element of the regex, see :h /\@!
-    " basically, searching for "/" is more complex since we want to avoid
-    " matching against "//" or "/*" which would break C++ comment highlighting
-    syntax match OperatorChars "?\|+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\|*\)\@!"
-    exec "hi OperatorChars guifg=" . g:ophigh_color . " gui=NONE"
+call s:IgnoreFiletypeIfNotSet('help')
+call s:IgnoreFiletypeIfNotSet('markdown')
+call s:IgnoreFiletypeIfNotSet('qf') " This is for the quickfix window
+call s:IgnoreFiletypeIfNotSet('conque_term')
+call s:IgnoreFiletypeIfNotSet('diff')
+call s:IgnoreFiletypeIfNotSet('html')
+call s:IgnoreFiletypeIfNotSet('css')
+call s:IgnoreFiletypeIfNotSet('xml')
+call s:IgnoreFiletypeIfNotSet('sh')
+call s:IgnoreFiletypeIfNotSet('bash')
+
+fun! s:HighlightOperators()
+  if get( g:ophigh_filetypes_to_ignore, &filetype, 0 )
+    return
+  endif
+
+  " for the last element of the regex, see :h /\@!
+  " basically, searching for "/" is more complex since we want to avoid
+  " matching against "//" or "/*" which would break C++ comment highlighting
+  syntax match OperatorChars "?\|+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\|*\)\@!"
+  exec "hi OperatorChars guifg=" . g:ophigh_color . " gui=NONE"
 endfunction
 
 au Syntax * call s:HighlightOperators()
