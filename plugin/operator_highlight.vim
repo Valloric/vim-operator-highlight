@@ -48,6 +48,7 @@ call s:IgnoreFiletypeIfNotSet('css')
 call s:IgnoreFiletypeIfNotSet('xml')
 call s:IgnoreFiletypeIfNotSet('sh')
 call s:IgnoreFiletypeIfNotSet('bash')
+call s:IgnoreFiletypeIfNotSet('notes')
 
 fun! s:HighlightOperators()
   if get( g:ophigh_filetypes_to_ignore, &filetype, 0 )
