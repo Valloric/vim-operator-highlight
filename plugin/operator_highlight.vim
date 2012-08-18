@@ -34,7 +34,7 @@ endif
 
 fun! s:IgnoreFiletypeIfNotSet( file_type )
   if get( g:ophigh_filetypes_to_ignore, a:file_type, 1 )
-    let g:ophigh_filetypes_to_ignore[a:file_type] = 1
+    let g:ophigh_filetypes_to_ignore[ a:file_type ] = 1
   endif
 endfunction
 
@@ -49,6 +49,7 @@ call s:IgnoreFiletypeIfNotSet('xml')
 call s:IgnoreFiletypeIfNotSet('sh')
 call s:IgnoreFiletypeIfNotSet('bash')
 call s:IgnoreFiletypeIfNotSet('notes')
+call s:IgnoreFiletypeIfNotSet('jinja')
 
 fun! s:HighlightOperators()
   if get( g:ophigh_filetypes_to_ignore, &filetype, 0 )
