@@ -25,7 +25,7 @@ else
 endif
 
 if !exists( 'g:ophigh_color_gui' )
-  let g:ophigh_color_gui = "#C796D4"
+  let g:ophigh_color_gui = "cyan"
 endif
 
 if !exists( 'g:ophigh_color' )
