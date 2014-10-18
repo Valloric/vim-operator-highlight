@@ -66,7 +66,7 @@ fun! s:HighlightOperators()
   " matching against "//" or "/*" which would break C++ comment highlighting
   syntax match OperatorChars "?\|+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\|*\)\@!"
   exec "hi OperatorChars guifg=" . g:ophigh_color_gui . " gui=NONE"
-  exec "hi OperatorChars ctermfg=" . g:ophigh_color . " gui=NONE"
+  exec "hi OperatorChars ctermfg=" . g:ophigh_color . " cterm=NONE"
 endfunction
 
 au Syntax * call s:HighlightOperators()
