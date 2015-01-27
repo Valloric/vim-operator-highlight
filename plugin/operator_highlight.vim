@@ -70,4 +70,5 @@ fun! s:HighlightOperators()
 endfunction
 
 au Syntax * call s:HighlightOperators()
+au ColorScheme * call s:HighlightOperators()
 
