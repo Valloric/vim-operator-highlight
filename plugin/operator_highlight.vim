@@ -28,6 +28,11 @@ if !exists( 'g:ophigh_color_gui' )
   let g:ophigh_color_gui = "cyan"
 endif
 
+if !exists( 'g:ophigh_highlight_link_group' )
+  let g:ophigh_highlight_link_group = ""
+endif
+
+
 if !exists( 'g:ophigh_color' )
   let g:ophigh_color = "cyan"
 endif
@@ -65,8 +70,15 @@ fun! s:HighlightOperators()
   " basically, searching for "/" is more complex since we want to avoid
   " matching against "//" or "/*" which would break C++ comment highlighting
   syntax match OperatorChars "?\|+\|-\|\*\|;\|:\|,\|<\|>\|&\||\|!\|\~\|%\|=\|)\|(\|{\|}\|\.\|\[\|\]\|/\(/\|*\)\@!"
-  exec "hi OperatorChars guifg=" . g:ophigh_color_gui . " gui=NONE"
-  exec "hi OperatorChars ctermfg=" . g:ophigh_color . " cterm=NONE"
+
+
+  if g:ophigh_highlight_link_group != "" 
+    exec "hi link OperatorChars " . g:ophigh_highlight_link_group
+  else
+    exec "hi OperatorChars guifg=" . g:ophigh_color_gui . " gui=NONE"
+    exec "hi OperatorChars ctermfg=" . g:ophigh_color . " cterm=NONE"
+  endif
+
 endfunction
 
 au Syntax * call s:HighlightOperators()
